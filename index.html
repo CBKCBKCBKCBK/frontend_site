@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body>
+    <header id="header"></header>
+    <main id="main">
+        <div class="btn">btn</div>
+    </main>
+    <footer id="footer"></footer>
+    <script src="./js/jquery_3.7.0_jquery.min.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        function page_initialization(){
+            $('#header').load('./parts/header.html')
+            $('#footer').load('./parts/footer.html')
+        }
+        function jq_start_function(){
+            page_initialization()
+        }
+        $(document).ready(jq_start_function)
+    </script>
+</body>
+</html>
