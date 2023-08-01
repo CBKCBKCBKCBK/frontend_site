@@ -1,0 +1,87 @@
+<h5>判斷成績及格學生</h5>
+成績<input type="number" id="q1_score" value="0" min="0" max="100"
+style="width: 100px;">
+<input type="button" id="q1_btn" value="判斷成績">
+<p id="q1_ans"></p>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+a<br>
+
+
+<script>
+    function q1() {
+        function ans(){
+            return $('#q1_ans').text(($('#q1_score').val() >= 60) 
+            ? '您及格了，恭喜您' : '您未滿60分，再努力')
+        }
+        $('#q1_score').keypress(function(e){
+            if(e.which==13)ans()
+        })
+        $('#q1_btn').click(ans)
+    }
+    function start_function() {
+        q1()
+    }
+    window.load = start_function()
+</script>

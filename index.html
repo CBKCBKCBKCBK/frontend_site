@@ -1,29 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        /* 0-1029 */
+        body{background-image: url('https://picsum.photos/id/237/1280/720');}
+        /* .parallax{
+            background: url('https://picsum.photos/id/237/1280/720')
+            center center no-repeat;
+            min-height: 600px;
+            background-attachment: fixed;
+            background-size: cover;
+        } */
+    </style>
 </head>
-<body>
+
+<body class="parallax">
     <header id="header"></header>
     <main id="main">
         <div class="btn">btn</div>
     </main>
     <footer id="footer"></footer>
+
     <script src="./js/jquery_3.7.0_jquery.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/parallax.min.js"></script>
     <script>
-        function page_initialization(){
+        // https://blog.tarswork.com/post/how-to-create-a-parallax-scrolling-effect/
+        function display(){
+            $(window).scroll(function(){
+                const scrollPositionY=window.pageYOffset
+                const background=$('.parallax')
+                background.css({transform:'translateY('+scrollPositionY+'px)'})
+            })
+            // console.log(screen.width);
+        }
+        function page_initialization() {
             $('#header').load('./parts/header.html')
             $('#footer').load('./parts/footer.html')
+            
+            //debug
+            $('#main').load('./features/flow.html')
+            // $.get('./features/flow.html',function(d){
+            //     $('#main').html(d)
+            // })
         }
-        function jq_start_function(){
+        function jq_start_function() {
             page_initialization()
+            display()
         }
         $(document).ready(jq_start_function)
     </script>
 </body>
+
 </html>
