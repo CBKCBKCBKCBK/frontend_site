@@ -25,11 +25,9 @@
     閃掉parallax-mirror造成的擠壓
 -->
 <body>
+    <noscript><h1>Use Javascript</h1></noscript>
     <header id="header"></header>
-    <!-- <div id="parallax" data-parallax="scroll" data-image-src="https://picsum.photos/id/237/1280/720"></div> -->
-    <!---->
-    <div class="parallax-window" data-parallax="scroll" data-position="top" data-bleed="10" data-image-src="https://picsum.photos/id/237/1280/720"
-    style="min-height: 400px;background: transparent;"></div>
+    <img src="https://picsum.photos/id/237/640/480" class="thumbnail">
     <main id="main"style="background: transparent;">
         <div class="btn">btn</div>
     </main>
@@ -37,16 +35,33 @@
 
     <script src="./js/jquery_3.7.0_jquery.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/parallax.min.js"></script>
+    <script src="./js/simpleParallax.min.js"></script>
     <script>
         // https://blog.tarswork.com/post/how-to-create-a-parallax-scrolling-effect/
-        function display(){
+        function init_display(){
+            function init_background(){
+                let bg=$('.parallax-background')
+                new simpleParallax(bg.get(0))
+                // if(screen.width/4*3>screen.height){
+                //     bg.attr('data-image-src','https://picsum.photos/id/237/'+screen.width+'/'+screen.width/4*3)
+                //     console.log('width',bg.data('imageSrc'));
+                //     // bg.innerWidth(screen.width)
+                //     bg.css('width',screen.width)
+                // }else{
+                //     console.log('height');
+                //     bg.attr('data-image-src','https://picsum.photos/id/237/'+screen.height/3*4+'/'+screen.height)
+                //     // bg.innerHeight(screen.height)
+                //     bg.css('height',screen.height)
+                // }
+                
+            }
             $(window).scroll(function(){
-                const scrollPositionY=window.pageYOffset
-                const background=$('.parallax')
-                background.css({transform:'translateY('+scrollPositionY+'px)'})
+                // const scrollPositionY=window.pageYOffset
+                // const background=$('.parallax')
+                // background.css({transform:'translateY('+scrollPositionY+'px)'})
             })
-            // console.log(screen.width);
+            // console.log(screen.height);
+            init_background()
         }
         function page_initialization() {
             $('#header').load('./parts/header.html')
@@ -59,7 +74,7 @@
         }
         function jq_start_function() {
             page_initialization()
-            display()
+            init_display()
         }
         $(document).ready(jq_start_function)
     </script>
