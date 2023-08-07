@@ -9,7 +9,15 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <style>
         /* 0-1029 */
-        /* body{background-image: url('https://picsum.photos/id/237/1280/720');} */
+        body {
+            background: url('https://picsum.photos/id/237/1280/720') no-repeat;
+            background-size: cover;
+            height: 100vw;
+            background-position-x: center;
+            background-color: rgba(255,255,255,0.6);
+            background-blend-mode: lighten;
+        }
+
         /* .parallax{
             background: url('https://picsum.photos/id/237/1280/720')
             center center no-repeat;
@@ -31,7 +39,7 @@
     </noscript>
     <header id="header"></header>
     <!-- <img src="https://picsum.photos/id/237/640/480" class="thumbnail"> -->
-    <div class="parallax-bg"></div>
+    <div id="background"></div>
     <!-- style="background: transparent;"-->
     <main id="main">
         <div class="btn">btn</div>
@@ -45,54 +53,32 @@
         // https://blog.tarswork.com/post/how-to-create-a-parallax-scrolling-effect/
         function init_display() {
             // let bg = $('.parallax::before')
-            let bg=$('.parallax-bg')
-            let main=$('#main')
+            let bg = $('.parallax-bg')
+            let main = $('#main')
             let bgHeight
+            let randBg = Math.floor(Math.random() * 1029)
+            $.get("https://picsum.photos/id/" + randBg + "/1/1", function () {
+                // init_background()
+            })
             function init_background() {
-                /**
-                 * 建立function更改css:
-                 * ajax成功時執行一次
-                 * 失敗時重新亂數在執行一次
-                */
-               let randBg = Math.floor(Math.random() * 1029)
-                // console.log($.get("https://picsum.photos/id/"+randBg+"/1/1"))
-                // new simpleParallax(bg.get(0))
-                console.log();
                 bgHeight = document.body.scrollHeight
                 if (screen.width / 4 * 3 > screen.height) {
                     bg.parallax({
-                        imageSrc:"https://picsum.photos/id/" + randBg + "/" + screen.width + "/" + screen.width / 4 * 3,
-                        speed:0.01
+                        imageSrc: "https://picsum.photos/id/" + randBg + "/" + screen.width + "/" + screen.width / 4 * 3,
+                        speed: 0.01
                     })
-                    document.body.
-                    // let out="url('https://picsum.photos/id/237/"+screen.width+"/"+screen.width/4*3+"') / "+screen.width+"px auto"
-                    console.log('width');
-                    // $.get("https://picsum.photos/id/"+randBg+"/1/1")
-                    // bg.css('background-image', "url('https://picsum.photos/id/" + randBg + "/" + screen.width + "/" + screen.width / 4 * 3 + "')")
-                    // bg.css('background-size', screen.width + "px auto")
-                    // bg.innerWidth(screen.width)
-                    // bg.css('width',screen.width)
-                    
                 } else {
-                    // bgHeight = screen.height
                     bg.parallax({
-                        imageSrc:"https://picsum.photos/id/" + randBg + "/" + screen.height / 3 * 4 + "/" + screen.height,
-                        speed:0.01
+                        imageSrc: "https://picsum.photos/id/" + randBg + "/" + screen.height / 3 * 4 + "/" + screen.height,
+                        speed: 0.01
                     })
-                    console.log('height');
-                    // bg.css('background',"url('https://picsum.photos/id/237/"+screen.height/3*4+"/"+screen.height+"') / auto "+screen.height+"px")
-                    // bg.css('background-image', "url('https://picsum.photos/id/" + randBg + "/" + screen.height / 3 * 4 + "/" + screen.height + "')")
-                    // bg.css('background-size', "auto " + screen.height + "px")
-                    // bg.innerHeight(screen.height)
-                    // bg.css('height',screen.height)
-                    
                 }
                 bg.css({
-                    'height':bgHeight+"px"
+                    'height': bgHeight + "px"
                 })
                 main.css({
-                    'position':'relative',
-                    'top':-screen.height
+                    'position': 'relative',
+                    'top': -screen.height
                 })
                 // bg.css({
                 //     'content':"",
@@ -135,7 +121,7 @@
             //     $('#main').html(d)
             // })
             $.when(headerLoaded, footerLoaded, mainLoaded).done(function () {
-                
+
             })
         }
         function jq_start_function() {
