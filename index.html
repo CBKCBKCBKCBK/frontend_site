@@ -7,31 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link href="./css/aos.css" rel="stylesheet">
     <style>
-        /* 0-1029 */
         body {
-            background: url('https://picsum.photos/id/237/1280/720') no-repeat;
+            background-image: url('https://picsum.photos/id/237/1280/720');
+            background-repeat: no-repeat;
             background-size: cover;
             height: 100vw;
             background-position-x: center;
-            background-color: rgba(255,255,255,0.6);
+            background-color: rgba(255, 255, 255, 0.7);
             background-blend-mode: lighten;
+            background-attachment: fixed;
         }
 
-        /* .parallax{
-            background: url('https://picsum.photos/id/237/1280/720')
-            center center no-repeat;
-            min-height: 600px;
-            background-attachment: fixed;
-            background-size: cover;
-        } */
+        #header .bg-body-tertiary {
+            background-color: rgba(var(--bs-tertiary-bg-rgb), 0.7) !important;
+            background-blend-mode: lighten;
+        }
     </style>
 </head>
-<!--
-    老師提供的方法:
-    把main用position:relative;top:-100% 的方式
-    閃掉parallax-mirror造成的擠壓
--->
 
 <body>
     <noscript>
@@ -48,89 +42,78 @@
 
     <script src="./js/jquery_3.7.0_jquery.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/simpleParallax.min.js"></script>
+    <!-- <script src="./js/aos.js"></script> -->
     <script>
         // https://blog.tarswork.com/post/how-to-create-a-parallax-scrolling-effect/
         function init_display() {
             // let bg = $('.parallax::before')
-            let bg = $('.parallax-bg')
-            let main = $('#main')
+            let bg = $('body')
             let bgHeight
-            let randBg = Math.floor(Math.random() * 1029)
-            $.get("https://picsum.photos/id/" + randBg + "/1/1", function () {
-                // init_background()
-            })
+            let randBg
+            function getRandBg() {
+                return Math.floor(Math.random() * 1030)
+            }
+
+            function bgTest() {
+                randBg = getRandBg()
+                $.get("https://picsum.photos/id/" + randBg + "/1/1")
+                    .done(function () {
+                        init_background()
+                    }).fail(function () {
+                        bgTest()
+                    })
+            }
             function init_background() {
                 bgHeight = document.body.scrollHeight
                 if (screen.width / 4 * 3 > screen.height) {
-                    bg.parallax({
-                        imageSrc: "https://picsum.photos/id/" + randBg + "/" + screen.width + "/" + screen.width / 4 * 3,
-                        speed: 0.01
+                    bg.css({
+                        'background-image': "url(https://picsum.photos/id/" + randBg + "/" + screen.width + "/" + screen.width / 4 * 3 + ")",
+                        "background-size": 'unset'
                     })
                 } else {
-                    bg.parallax({
-                        imageSrc: "https://picsum.photos/id/" + randBg + "/" + screen.height / 3 * 4 + "/" + screen.height,
-                        speed: 0.01
+                    bg.css({
+                        'background-image': "url(https://picsum.photos/id/" + randBg + "/" + screen.height / 3 * 4 + "/" + screen.height + ")",
+                        "background-size": 'unset'
                     })
                 }
-                bg.css({
-                    'height': bgHeight + "px"
-                })
-                main.css({
-                    'position': 'relative',
-                    'top': -screen.height
-                })
-                // bg.css({
-                //     'content':"",
-                //     'background-repeat': "no-repeat",
-                //     // 'background-position': "0 " + headerHeight + "px",
-                //     'background-color': "rgba(255,255,255,0.6)",
-                //     'background-blend-mode': 'overlay'
-                // })
             }
-
-            // parallax
-            // function updateBackgroundPosition() {
-            //     let scrollPositionY = window.pageYOffset;
-            //     let bgHeight = bg.height();
-            //     let docHeight = document.body.scrollHeight;
-            //     bg.css('background-position', '0 ' + (scrollPositionY * (bgHeight / docHeight)) + "px");
-            // }
             $(window).scroll(() => {
                 // requestAnimationFrame(updateBackgroundPosition)
             })
             // console.log(screen.height);
-            init_background()
+            bgTest()
         }
         function page_initialization() {
-            var headerLoaded = $.Deferred();
-            var footerLoaded = $.Deferred();
-            var mainLoaded = $.Deferred();
-            $('#header').load('./parts/header.html', function () {
-                headerHeight = $('#header').height()
-                headerLoaded.resolve();
-            })
-            $('#footer').load('./parts/footer.html', function () {
-                footerLoaded.resolve();
-            })
+            $('#header').load('./parts/header.html')
+            $('#footer').load('./parts/footer.html')
+            // var headerLoaded = $.Deferred();
+            // var footerLoaded = $.Deferred();
+            // var mainLoaded = $.Deferred();
+            // $('#header').load('./parts/header.html', function () {
+            //     headerHeight = $('#header').height()
+            //     headerLoaded.resolve();
+            // })
+            // $('#footer').load('./parts/footer.html', function () {
+            //     footerLoaded.resolve();
+            // })
             //debug
-            $('#main').load('./features/flow.html', function () {
-                mainLoaded.resolve();
-            })
+            $('#main').load('./features/flow.html')
+            // $('#main').load('./features/flow.html', function () {
+            //     mainLoaded.resolve();
+            // })
             // $.get('./features/flow.html',function(d){
             //     $('#main').html(d)
             // })
-            $.when(headerLoaded, footerLoaded, mainLoaded).done(function () {
-
-            })
+            // $.when(headerLoaded, footerLoaded, mainLoaded).done(function () {})
         }
         function jq_start_function() {
             page_initialization()
+        }
+        function init_function() {
             init_display()
         }
-
-        let headerHeight
-
+        // let headerHeight
+        init_function()
         $(document).ready(jq_start_function)
     </script>
 </body>
