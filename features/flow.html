@@ -3,20 +3,87 @@
 <input type="number" id="q1_score" value="0" min="0" max="100" style="width: 100px;">
 <input type="button" id="q1_btn" value="判斷成績">
 <p id="q1_ans">&nbsp;</p>
-<br>
+<hr>
 <h5>分配成績等級</h5>
+<span>成績</span>
+<input type="number" id="q2_score" value="0" min="0" max="100" style="width: 100px;">
+<input type="button" id="q2_btn" value="判斷等級">
+<p id="q2_ans">&nbsp;</p>
+<hr>
+<h5>閏年判斷</h5>
+<span>年份</span>
+<input type="number" id="q3_year" value="2000" min="1" style="width: 100px;">
+<input type="button" id="q3_btn" value="判斷閏年">
+<p id="q3_ans">&nbsp;</p>
+<hr>
+<h5>for迴圈數列</h5>
+<span>數量</span>
+<input type="number" id="q3_year" value="2000" min="1" style="width: 100px;">
 
 <script src="./js/aos.js"></script>
 <script>
-    function q1() {
-        function ans() {
-            return $('#q1_ans').text(($('#q1_score').val() >= 60)
-                ? '您及格了，恭喜您' : '您未滿60分，再努力')
+    const questions = {
+        q1: function () {
+            function ans() {
+                $('#q1_ans').text(($('#q1_score').val() >= 60)
+                    ? '您及格了，恭喜您' : '您未滿60分，再努力')
+            }
+            $('#q1_score').keypress(function (e) {
+                if (e.which == 13) ans()
+            })
+            $('#q1_btn').click(ans)
+        },
+        q2: function () {
+            function ans() {
+                $("#q2_ans").html(function (id, t) {
+
+                    let score = Number($("#q2_score").val())
+                    let out = "您的成績為" + score + "，等級為"
+                    if (score >= 90 && score <= 100) {
+                        out += 'A，非常優秀'
+                    } else if (score >= 80 && score < 90) {
+                        out += 'B，考得很好'
+                    } else if (score >= 70 && score < 80) {
+                        out += 'C，考得不錯'
+                    } else if (score >= 60 && score < 70) {
+                        0
+                        out += 'D，要再加油'
+                    } else if (score >= 0 && score < 60) {
+                        out += 'E，仍須努力'
+                    } else if (score > 100 || score < 0) {
+                        return "<span style='color:red'>請輸入0~100的數字</span>"
+                    }
+                    return out
+                })
+            }
+            $("#q2_score").keypress(function (e) {
+                if (e.which == 13) ans()
+            })
+            $("#q2_btn").click(ans)
+        },
+        q3:function(){
+            function ans(){
+                $('#q3_ans').text(function(id,t){
+                    let year=Number($("#q3_year").val())
+                    let out="輸入年份為"+year+" 此年為"
+                    if((year%4==0)&&(year%100!=0)||(year%400==0)){
+                        out+="閏年"
+                    }else{
+                        out+="平年"
+                    }
+                    return out
+                })
+            }
+            $("#q3_year").keypress(function (e) {
+                if (e.which == 13) ans()
+            })
+            $("#q3_btn").click(ans)
+        },
+        q4:function(){
+            function ans1(){}
+            function ans2(){}
+            function ans3(){}
         }
-        $('#q1_score').keypress(function (e) {
-            if (e.which == 13) ans()
-        })
-        $('#q1_btn').click(ans)
     }
     function init_display() {
         let main_all = $("#main *")
@@ -26,11 +93,13 @@
             "data-aos-offset": 25,
             "data-aos-duration": 400
         })
-        console.log($('#main br'));
-        $('#main br').removeAttr('data-aos')
+        // console.log($('#main br'));
+        $('#main hr').css("color","#333").removeAttr('data-aos')
     }
     function start_function() {
-        q1()
+        for (const key in questions) {
+            if (questions.hasOwnProperty(key)) questions[key]()
+        }
         init_display()
         AOS.init()
     }

@@ -1,3 +1,10 @@
+<style>
+  #navbarSupportedContent .nav-item .disabled {
+    cursor: pointer;
+    pointer-events: all !important;
+    user-select: none;
+  }
+</style>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="./index.html">程式設計天地</a>
@@ -21,12 +28,18 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+          <a class="nav-link" aria-current="page" href="#">趣味小品</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#">API與圖表</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          >PHP網站</a>
+          <!--onclick="toPHP()"-->
+        </li>
+        <!--li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
           </a>
@@ -38,9 +51,9 @@
             </li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
-        </li>
+        </li-->
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <a class="nav-link disabled">登出</a>
         </li>
       </ul>
       <form class="d-flex" role="search">
@@ -50,7 +63,32 @@
     </div>
   </div>
 </nav>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">移動至PHP網站</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        是否移動至PHP網站?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">否</button>
+        <button type="button" class="btn btn-primary" onclick="">是</button>
+        <!--location.href='網址'-->
+      </div>
+    </div>
+  </div>
+</div>
 <script>
+  // function toPHP(){
+  //   const myModal=$("#exampleModal")
+  // const myInput=$("#toPHP")
+  //   myModal.on('shown.bs.modal',()=>{
+  //     myInput.focus()
+  //   })
+  // }
   $('a[data-href]').click(function () {
     $('#main').load(`./features/${$(this).data('href')}.html`)
   })

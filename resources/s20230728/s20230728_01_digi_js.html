@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="mg1" id="ck1"></div>
+        <div class="mg2" id="ck2"></div>
+        <div class="mgd"></div>
+        <div class="mg3" id="ck3"></div>
+        <div class="mg4" id="ck4"></div>
+        <div class="mgd"></div>
+        <div class="mg5" id="ck5"></div>
+        <div class="mg6" id="ck6"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function jq_start_function(){
+            // 目前困擾點
+        // 進頁面 只會讀取一次
+
+        function timeFun() {
+            // 1.抓本地端時間
+            const nt = new Date();
+            const nh = nt.getHours(); // 10
+            const nm = nt.getMinutes(); // 32
+            const ns = nt.getSeconds(); // 20
+
+            // 2.拆解六個數字
+            // 數學方式拆 同學也可以用 字串分割方法
+            const nk1 = Math.floor(nh / 10);
+            const nk2 = nh % 10;
+            const nk3 = Math.floor(nm / 10);
+            const nk4 = nm % 10;
+            const nk5 = Math.floor(ns / 10);
+            const nk6 = ns % 10;
+
+            // 綁定html div
+            const ck1 = document.getElementById('ck1');
+            const ck2 = document.getElementById('ck2');
+            const ck3 = document.getElementById('ck3');
+            const ck4 = document.getElementById('ck4');
+            const ck5 = document.getElementById('ck5');
+            const ck6 = document.getElementById('ck6');
+
+            ck1.setAttribute('class', `mg${nk1}`);
+            ck2.setAttribute('class', `mg${nk2}`);
+            ck3.setAttribute('class', `mg${nk3}`);
+            ck4.setAttribute('class', `mg${nk4}`);
+            ck5.setAttribute('class', `mg${nk5}`);
+            ck6.setAttribute('class', `mg${nk6}`);
+
+            let mgd = document.querySelectorAll('.mgd');
+            mgd[0].style.opacity = 1;
+            mgd[1].style.opacity = 1;
+            // console.log('mgd', mgd);
+
+            // 第二個功能需求
+            // : 會閃 500 半秒閃一次
+
+            setTimeout(function () {
+                let mgd = document.querySelectorAll('.mgd');
+                mgd[0].style.opacity = 0;
+                mgd[1].style.opacity = 0;
+            }, 500)
+
+
+        }
+
+        timeFun();
+        // 解法
+        // 希望每一秒都去抓
+        setInterval(timeFun, 1000)
+        console.log('timeFun', timeFun);
+        }
+        $(document).ready(jq_start_function)
+    </script>
+</body>
+</html>
