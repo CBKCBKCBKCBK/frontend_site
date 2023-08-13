@@ -5,41 +5,53 @@
     user-select: none;
   }
 </style>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="./index.html">程式設計天地</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            程式設計基礎
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" data-href="flow">流程控制</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
-          <a class="nav-link" aria-current="page" href="#">趣味小品</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">API與圖表</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
-          >PHP網站</a>
-          <!--onclick="toPHP()"-->
-        </li>
-        <!--li class="nav-item dropdown">
+<div class="container-lg">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./index.html">程式設計天地</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              程式設計基礎
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-href="program/flow">流程控制</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              趣味小品
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-href="skit/clock">數位時鐘</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="#">API與圖表</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">PHP網站</a>
+            <!--onclick="toPHP()"-->
+          </li>
+          <!--li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
           </a>
@@ -52,31 +64,32 @@
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
         </li-->
-        <li class="nav-item">
-          <a class="nav-link disabled">登出</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+          <li class="nav-item">
+            <a class="nav-link disabled">登出</a>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
     </div>
-  </div>
-</nav>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">移動至PHP網站</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        是否移動至PHP網站?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">否</button>
-        <button type="button" class="btn btn-primary" onclick="">是</button>
-        <!--location.href='網址'-->
+  </nav>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">移動至PHP網站</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          是否移動至PHP網站?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">否</button>
+          <button type="button" class="btn btn-primary" onclick="">是</button>
+          <!--location.href='網址'-->
+        </div>
       </div>
     </div>
   </div>
@@ -89,7 +102,9 @@
   //     myInput.focus()
   //   })
   // }
-  $('a[data-href]').click(function () {
-    $('#main').load(`./features/${$(this).data('href')}.html`)
+  $('a[data-href]').click(function (e) {
+    // e.preventDefault()
+    let url=`./features/${$(this).data('href')}.html`
+    $('#main').load(url)
   })
 </script>

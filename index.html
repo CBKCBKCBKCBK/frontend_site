@@ -28,6 +28,7 @@
 </head>
 
 <body>
+    <!-- <img src="./img/skit/clock/num2.png" alt=""> -->
     <noscript>
         <h1>Use Javascript</h1>
     </noscript>
@@ -81,6 +82,9 @@
             // console.log(screen.height);
             bgTest()
         }
+        function event_function(){
+
+        }
         function page_initialization() {
             $('#header').load('./parts/header.html')
             $('#footer').load('./parts/footer.html')
@@ -95,7 +99,8 @@
             //     footerLoaded.resolve();
             // })
             //debug
-            $('#main').load('./features/flow.html')
+            $('#main').load('./features/skit/clock.html')
+            // $('#main').load('./features/program/flow.html')
             // $('#main').load('./features/flow.html', function () {
             //     mainLoaded.resolve();
             // })
@@ -109,6 +114,7 @@
         }
         function init_function() {
             init_display()
+            event_function()
         }
         // let headerHeight
         init_function()
