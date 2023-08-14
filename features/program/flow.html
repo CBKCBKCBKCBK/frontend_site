@@ -24,8 +24,8 @@
 
 <script src="./js/aos.js"></script>
 <script>
-    if (typeof questions === 'undefined') {
-        const questions = {
+    function questions() {
+        let questions = {
             q1: function () {
                 function ans() {
                     $('#q1_ans').text(($('#q1_score').val() >= 60)
@@ -49,7 +49,6 @@
                         } else if (score >= 70 && score < 80) {
                             out += 'C，考得不錯'
                         } else if (score >= 60 && score < 70) {
-                            0
                             out += 'D，要再加油'
                         } else if (score >= 0 && score < 60) {
                             out += 'E，仍須努力'
@@ -88,6 +87,9 @@
                 function ans3() { }
             }
         }
+        for (const key in questions) {
+            if (questions.hasOwnProperty(key)) questions[key]()
+        }
     }
     function init_display() {
         let main_all = $("#main *")
@@ -101,11 +103,9 @@
         $('#main hr').css("color", "#333").removeAttr('data-aos')
     }
     function start_function() {
-        if (typeof questions !== 'undefined') {
-            for (const key in questions) {
-                if (questions.hasOwnProperty(key)) questions[key]()
-            }
-        }
+        // if (typeof questions !== 'undefined') {
+        questions()
+        // }
         init_display()
         AOS.init()
     }

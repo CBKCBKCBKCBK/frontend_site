@@ -1,27 +1,69 @@
 <style>
-    .container{display: flex;}
-    .mg1,.mg2,.mg3,.mg4,.mg5,.mg6,.mg7,.mg8,.mg9,.mg0{
+    .container {
+        display: flex;
+    }
+
+    .mg1,
+    .mg2,
+    .mg3,
+    .mg4,
+    .mg5,
+    .mg6,
+    .mg7,
+    .mg8,
+    .mg9,
+    .mg0 {
         width: 100px;
         height: 100px;
         background: url('./img/skit/clock/num2.png');
     }
-    .mgd{
+
+    .mgd {
         width: 50px;
         height: 100px;
         background: url('./img/skit/clock/num2.png');
         background-position: right;
     }
-    .mg1{background-position: -100px;}
-    .mg2{background-position: -200px;}
-    .mg3{background-position: -300px;}
-    .mg4{background-position: -400px;}
-    .mg5{background-position: -500px;}
-    .mg6{background-position: -600px;}
-    .mg7{background-position: 350px;}
-    .mg8{background-position: 250px;}
-    .mg9{background-position: 150px;}
-    .mg0{background-position: 0px;}
-    
+
+    .mg1 {
+        background-position: -100px;
+    }
+
+    .mg2 {
+        background-position: -200px;
+    }
+
+    .mg3 {
+        background-position: -300px;
+    }
+
+    .mg4 {
+        background-position: -400px;
+    }
+
+    .mg5 {
+        background-position: -500px;
+    }
+
+    .mg6 {
+        background-position: -600px;
+    }
+
+    .mg7 {
+        background-position: 350px;
+    }
+
+    .mg8 {
+        background-position: 250px;
+    }
+
+    .mg9 {
+        background-position: 150px;
+    }
+
+    .mg0 {
+        background-position: 0px;
+    }
 </style>
 <div class="container">
     <div class="mg1" id="ck1"></div>
@@ -34,12 +76,44 @@
     <div class="mg6" id="ck6"></div>
 </div>
 <script>
-    function jq_start_function(){
-        function timeFun(){
-            const nt=new Date()
-            const nh=nt.getHours()
-            const nm=nt.getMinutes()
+    function jq_start_function() {
+        function timeFun() {
+            const nt = new Date()
+            const nh = nt.getHours()
+            const nm = nt.getMinutes()
+            const ns = nt.getSeconds()
+            // 拆解數字 可用字串分割法
+            const nk = {
+                nk1: Math.floor(nh / 10),
+                nk2: nh % 10,
+                nk3: Math.floor(nm / 10),
+                nk4: nm % 10,
+                nk5: Math.floor(ns / 10),
+                nk6: ns % 10
+            }
+            // const nk1=Math.floor(nh/10)
+            // const nk2=nh%10
+            // const nk3=Math.floor(nm/10)
+            // const nk4=nm%10
+            // const nk5=Math.floor(ns/10)
+            // const nk6=ns%10
+            // 綁定html div
+            const ck = {}
+            for (let i = 1; i <= 6; i++) {
+                ck['ck' + i] = $("#ck" + i)
+                ck['ck' + i].attr('class', "mg" + nk["nk" + i])
+            }
+            let mgd = $(".mgd")
+            mgd.eq(0).css('opacity', 1)
+            mgd.eq(1).css('opacity', 1)
+            setTimeout(function () {
+                let mgd = $(".mgd")
+                mgd.eq(0).css('opacity', 0)
+                mgd.eq(1).css('opacity', 0)
+            },500)
         }
+        timeFun()
+        setInterval(timeFun)
     }
     $(document).ready(jq_start_function)
 </script>
