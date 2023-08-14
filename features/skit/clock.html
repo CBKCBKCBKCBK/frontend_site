@@ -1,6 +1,7 @@
 <style>
     .container {
         display: flex;
+        max-width: 720px;
     }
 
     .mg1,
@@ -110,10 +111,10 @@
                 let mgd = $(".mgd")
                 mgd.eq(0).css('opacity', 0)
                 mgd.eq(1).css('opacity', 0)
-            },500)
+            }, 500)
         }
         timeFun()
-        setInterval(timeFun)
+        setInterval(timeFun, 1000)
     }
     $(document).ready(jq_start_function)
 </script>
