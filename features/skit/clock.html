@@ -2,6 +2,7 @@
     .container {
         display: flex;
         max-width: 720px;
+        margin: 25vh auto;
     }
 
     .mg1,
@@ -67,6 +68,9 @@
     }
 </style>
 <div class="container">
+    <div id="timeName"></div>
+</div>
+<div class="container">
     <div class="mg1" id="ck1"></div>
     <div class="mg2" id="ck2"></div>
     <div class="mgd"></div>
@@ -78,6 +82,11 @@
 </div>
 <script>
     function jq_start_function() {
+        const time=new Intl.DateTimeFormat('zh-TW',{
+            timeZoneName:"longGeneric"
+        })
+        $("#timeName").text(time.formatToParts(new Date())[6].value)
+        console.log(time.formatToParts(new Date())[6]);
         function timeFun() {
             const nt = new Date()
             const nh = nt.getHours()

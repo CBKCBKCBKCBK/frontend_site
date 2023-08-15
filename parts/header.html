@@ -87,7 +87,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">否</button>
-          <button type="button" class="btn btn-primary" onclick="">是</button>
+          <button type="button" class="btn btn-primary" onclick="toPHP()">是</button>
           <!--location.href='網址'-->
         </div>
       </div>
@@ -95,13 +95,14 @@
   </div>
 </div>
 <script>
-  // function toPHP(){
+  function toPHP(){
   //   const myModal=$("#exampleModal")
   // const myInput=$("#toPHP")
   //   myModal.on('shown.bs.modal',()=>{
   //     myInput.focus()
   //   })
-  // }
+  location.href="https://wda.mackliu.com/s1120203/"
+  }
   $('a[data-href]').click(function (e) {
     // e.preventDefault()
     let url=`./features/${$(this).data('href')}.html`
