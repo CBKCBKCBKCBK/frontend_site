@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function jq_start_function(){
+            $.ajax({
+                type: "get",
+                url: "https://iplay.sa.gov.tw/api/GymSearchAllList",
+                // data: "data",
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                }
+            });        
+        }
+        $(document).ready(jq_start_function)
+    </script>
+</body>
+</html>

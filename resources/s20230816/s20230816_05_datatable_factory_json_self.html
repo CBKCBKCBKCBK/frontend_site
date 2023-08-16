@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+</head>
+
+<body>
+
+    <table id="myTable" class="display">
+        <thead>
+            <tr>
+                <td>accociation name</td>
+                <td>basicinformationtype</td>
+                <td>localcall service</td>
+                <td>countycode</td>
+                <td>address</td>
+            </tr>
+        </thead>
+        <tbody id="myTbody">
+            <!-- insert jquery data -->
+            <!-- foreach php .... -->
+        </tbody>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="./js/factory.js"></script> -->
+    <script>
+        function jq_start_function() {
+            const myTable = $("#myTable")
+            const myTbody = $("#myTbody")
+            let content = ''
+            // let url = "./js/新北市觀光工廠.csv"
+            // $.ajax({
+            //     type: 'get',
+            //     url: url,
+            //     dataType: "text",
+            //     success: function (res) {
+            //         console.log('success');
+            //         // console.log('res', res);
+            //         let array = res.split("\n").map(function (line) {
+            //             let arr=line.split(",");
+            //             let newArr=arr.map(function(val,id){
+            //                 if(val.indexOf('""')>=0){
+            //                     val=val.replace(/""/g,' ')
+            //                 }
+            //                 if(val.indexOf('"')>=0){
+            //                     val=val.replace(/"/g,'')
+            //                 }
+            //                 // console.log('val',val,val.indexOf('""'));
+            //                 return val
+            //             })
+            //             console.log(newArr,newArr.indexOf('"'));
+            //             return newArr;
+            //         });
+            //         console.log(JSON.stringify(array));
+            //     }
+            // })
+
+
+            let url = "./js/新北市觀光工廠.csv";
+            function processValue(val) {
+                return val.replace(/""/g, ' ')
+                .replace(/"/g, '')
+                // .replace(/ /g, '_');
+            }
+            $.ajax({
+                type: 'get',
+                url: url,
+                dataType: "text",
+                success: function (res) {
+                    // console.log('success');
+
+                    let lines = res.trim().split("\n");
+                    let headers = lines[0].split(",");
+                    // console.log('headers',headers);
+
+                    let array = lines.slice(1).map(function (line) {
+                        let values = line.split(",");
+                        let newObj = {};
+
+                        headers.forEach(function (header, index) {
+                            let val = processValue(values[index]);
+                            let headerProcessed = processValue(header);
+
+                            newObj[headerProcessed] = val;
+                        });
+
+                        return newObj;
+                    });
+                    // console.log(JSON.stringify(array));
+                    let data=array
+                    for (let i = 0; i < data.length; i++) {
+                        content = content + `
+                    <tr>
+                        <td>${data[i]["accociation name"]}</td>
+                        <td>${data[i]["basicinformationtype"]}</td>
+                        <td>${data[i]["localcall service"]}</td>
+                        <td>${data[i]["countycode"]}</td>
+                        <td>${data[i]["address"]}</td>
+                    </tr>                   
+                    `;
+                    }
+                    myTbody.html(content);
+                    myTable.DataTable();
+                }
+            });
+        }
+        $(document).ready(jq_start_function)
+    </script>
+</body>
+
+</html>
