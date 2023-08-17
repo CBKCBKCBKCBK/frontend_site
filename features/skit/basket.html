@@ -110,9 +110,8 @@
             })
         }
         //  初始化
-        localStorage.removeItem("cbk")
+        // localStorage.removeItem("cbk")
         let highHistory = JSON.parse(localStorage.getItem("cbk"))
-        console.log(highHistory);
         if (JSON.parse(localStorage.getItem("cbk")) !== null) {
             highHistory = JSON.parse(localStorage.getItem("cbk")).scoreHigh
             $("#highScore").text(highHistory)

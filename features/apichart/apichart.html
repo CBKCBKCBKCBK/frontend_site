@@ -1,0 +1,174 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<div class="container">
+    <table id="myTable">
+        <thead></thead>
+    </table>
+</div>
+<div class="container">
+    <h5>觀光工廠地區圖表</h5>
+    <div class="row">
+        <div class="col">
+            <canvas id="tfdChart"></canvas>
+        </div>
+    </div>
+    <h5>觀光工廠名錄</h5>
+    <table id="tfdTable">
+        <thead>
+            <tr>
+                <td>序號</td>
+                <td>地區別</td>
+                <td>縣市</td>
+                <td>工廠名稱</td>
+                <td>地址</td>
+                <td>網址</td>
+            </tr>
+        </thead>
+        <tbody id="tfdTbody"></tbody>
+    </table>
+</div>
+<div class="container">
+    <h5>新北市觀光工廠</h5>
+    <table id="tfMyTable" class="display">
+        <thead>
+            <tr>
+                <td>組織名稱</td>
+                <td>業者基本資訊</td>
+                <td>市話</td>
+                <td>縣市代碼</td>
+                <td>地址</td>
+            </tr>
+        </thead>
+        <tbody id="myTbody"></tbody>
+    </table>
+</div>
+
+<script>
+    function tfdChart(labels, datas) {
+        const tfdChart = $("#tfdChart")
+        new Chart(tfdChart, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "觀光工廠縣市統計",
+                    data: datas,
+                    // backgroundColor: [
+                    //     'rgb(255, 99, 132)',
+                    //     'rgb(54, 162, 235)',
+                    //     'rgb(255, 205, 86)'
+                    // ],
+                    hoverOffset: 4
+                }]
+            }
+        })
+    }
+    function tourismFactoryDirectory() {
+        let url = "./data/tfd.json"
+        $.ajax({
+            type: 'get',
+            url: url,
+            dataType: "json",
+            success: function (res) {
+                let tfdData = res
+                let result = tfdData.map(item => {
+                    //  key值資料錯誤，使用自建key值
+                    let curKeys = ['id', 'area', 'location', 'name', 'address', 'url']
+                    let transformedItem = {}
+                    curKeys.forEach((curKey, idx) => {
+                        transformedItem[curKey] = item[Object.keys(item)[idx]]
+                    })
+                    return transformedItem
+                })
+                let locationCounts = {};
+                result.forEach(item => {
+                    let location = item.location;
+                    if (locationCounts[location]) {
+                        locationCounts[location]++;
+                    } else {
+                        locationCounts[location] = 1;
+                    }
+                });
+                tfdChart(Object.keys(locationCounts)
+                ,Object.values(locationCounts))
+                // console.log(Object.keys(locationCounts));   //地區名稱
+                // console.log(Object.values(locationCounts)); //地區數量
+                tfdData = result
+                const tfdTable = $("#tfdTable")
+                const tfdTbody = $("#tfdTbody")
+                let content = ""
+                for (let i = 0; i < tfdData.length; i++) {
+                    content += `
+                    <tr>
+                        <td>${tfdData[i]["id"] - 1}</td>
+                        <td>${tfdData[i]["area"]}</td>
+                        <td>${tfdData[i]["location"]}</td>
+                        <td>${tfdData[i]["name"]}</td>
+                        <td>${tfdData[i]["address"]}</td>
+                        <td>${tfdData[i]["url"]}</td>
+                    </tr> 
+            `
+                }
+                tfdTbody.html(content)
+                tfdTable.DataTable({
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/zh-HANT.json',
+                    }
+                })
+            }
+        })
+    }
+    function tourismFactory() {
+        const tfMyTable = $("#tfMyTable")
+        const myTbody = $("#myTbody")
+
+        let content = ""
+        let url = "https://data.ntpc.gov.tw/api/datasets/57eb9b00-979c-44bb-a4ee-cc55bdf1488a/csv/file"
+        function processValue(val) {
+            return val.replace(/""/g, ' ')
+                .replace(/"/g, '')
+            // .replace(/ /g,'_')
+        }
+        $.ajax({
+            type: 'get',
+            url: url,
+            dataType: "text",
+            success: function (res) {
+                let lines = res.trim().split("\n")
+                let headers = lines[0].split(",")
+                let array = lines.slice(1).map(function (line) {
+                    let values = line.split(",")
+                    let newObj = {}
+                    headers.forEach(function (header, idx) {
+                        let val = processValue(values[idx])
+                        let headerProcessed = processValue(header)
+                        newObj[headerProcessed] = val
+                    })
+                    return newObj
+                })
+                let tfData = array
+                for (let i = 0; i < tfData.length; i++) {
+                    content = content + `
+                    <tr>
+                        <td>${tfData[i]["accociation name"]}</td>
+                        <td>${tfData[i]["basicinformationtype"]}</td>
+                        <td>${tfData[i]["localcall service"]}</td>
+                        <td>${tfData[i]["countycode"]}</td>
+                        <td>${tfData[i]["address"]}</td>
+                    </tr>                   
+                    `;
+                }
+                myTbody.html(content);
+                tfMyTable.DataTable({
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/zh-HANT.json',
+                    }
+                })
+            }
+        })
+    }
+    function jq_start_function() {
+        tourismFactoryDirectory()
+        tourismFactory()
+    }
+    $(document).ready(jq_start_function)
+</script>
