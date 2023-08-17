@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" <style>
+    #myChart2{
+    position: absolute;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <canvas id="myChart1"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <canvas id="myChart2"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <canvas id="myChart4"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function jq_start_function() {
+            const ctx1 = $("#myChart1")
+            const ctx2 = $("#myChart2")
+            const ctx3 = $("#myChart3")
+            const ctx4 = $("#myChart4")
+            new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份', '7月份', '8月份', '9月份', '10月份', '11月份', '12月份'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [1500, 2000, 3000, 1500, 1800, 2000, 1500, 2000, 3000, 1500, 1800, 2000],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            })
+            // ctx2
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [1500, 2000, 3000, 1500, 1800, 2000],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // ctx3
+            new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [1500, 2000, 3000, 1500, 1800, 2000],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            // 創建空的 Chart 實例
+            var combinedChart = new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: ['1月份', '2月份', '3月份', '4月份', '5月份', '6月份'],
+                    datasets: [
+                        {
+                            label: '柱狀圖',
+                            data: [1500, 2000, 3000, 1500, 1800, 2000],
+                            borderWidth: 1,
+                            type: 'bar'
+                        }, {
+                            label: '折線圖',
+                            data: [1500, 2000, 3000, 1500, 1800, 2000],
+                            borderWidth: 1,
+                            type: 'line'
+                        }
+                    ]  // 空的數據集
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // 添加柱狀圖數據集
+            // combinedChart.data.datasets.push({
+            //     label: '柱狀圖',
+            //     data: [1500, 2000, 3000, 1500, 1800, 2000],
+            //     borderWidth: 1,
+            //     type: 'bar'
+            // });
+
+            // 添加折線圖數據集
+            // combinedChart.data.datasets.push({
+            //     label: '折線圖',
+            //     data: [1500, 2000, 3000, 1500, 1800, 2000],
+            //     borderWidth: 1,
+            //     type: 'line'
+            // });
+
+            // 更新圖表
+            // combinedChart.update();
+        }
+        $(document).ready(jq_start_function)
+    </script>
+</body>
+
+</html>

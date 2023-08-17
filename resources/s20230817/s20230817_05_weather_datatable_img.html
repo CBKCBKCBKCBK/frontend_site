@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+</head>
+
+<body>
+    <h3 class="text-center">氣象資料 36HR</h3>
+    <hr>
+    <div class="container ">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" onclick="window.print()">Print</button>
+            </div>
+            <div class="col">
+                <button type="button" class="locationBtn btn btn-primary" data-location="新北市">新北市</button>
+            </div>
+            <div class="col">
+                <button type="button" class="locationBtn btn btn-primary" data-location="臺中市">臺中市</button>
+            </div>
+            <div class="col">
+                <button type="button" class="locationBtn btn btn-primary" data-location="高雄市">高雄市</button>
+            </div>
+            <div class="col">
+                <button type="button" class="locationBtn btn btn-primary" data-location="all" id="all">ALL</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 text-center">
+        <div class="row">
+            <div class="col">
+                序號
+            </div>
+            <div class="col">
+                地點
+            </div>
+            <div class="col">
+                2023-08-17 12:00:00
+            </div>
+            <div class="col">
+                2023-08-17 18:00:00
+            </div>
+            <div class="col">
+                2023-08-18 06:00:00
+            </div>
+        </div>
+        <div class="container-fluid text-center" id="myContainer"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./ignore/self.js"></script>
+    <script>
+        function jq_start_function() {
+            const myContainer = $("#myContainer")
+            // const all = $("#all")
+            // const newTaipei = $("#newTaipei")
+            const locationBtn = $(".locationBtn")
+            let dataLocation = ""
+            // const weatherMap=[]
+            locationBtn.click(function () {
+                dataLocation = $(this).attr("data-location")
+                myContainer.html('');
+                getValue(dataLocation)
+            })
+            function getValue(locationName) {
+                $.ajax({
+                    type: "get",
+                    url: auth_url(),
+                    // data: "data",
+                    dataType: "json",
+                    success: function (res) {
+                        // console.log('res',res);
+
+                        //                     let jsonString = JSON.stringify(res, null, 2);
+
+                        // // 創建 Blob 對象
+                        // let blob = new Blob([jsonString], { type: "application/json" });
+
+                        // // 創建 URL
+                        // let url = URL.createObjectURL(blob);
+
+                        // // 創建一個 <a> 元素，用於下載 JSON 文件
+                        // let downloadLink = document.createElement("a");
+                        // downloadLink.href = url;
+                        // downloadLink.download = "data.json"; // 下載的文件名
+                        // downloadLink.textContent = "Download JSON";
+
+                        // // 將 <a> 元素添加到 DOM
+                        // document.body.appendChild(downloadLink);
+
+                        // let data=res['']['']
+                        let data = res.records.location
+                        let content=""
+                        data.forEach((val, key) => {
+                            let locationNameByData = val.locationName
+                            if (locationName == 'all'){
+
+                            }else{
+                                if (locationName != locationNameByData) {
+                                    return;
+                                }
+                            }
+                            let time12 = `${val.weatherElement[2].time[0].parameter.parameterName} - ${val.weatherElement[4].time[0].parameter.parameterName}`
+                            let time24 = `${val.weatherElement[2].time[1].parameter.parameterName} - ${val.weatherElement[4].time[1].parameter.parameterName}`
+                            let time36 = `${val.weatherElement[2].time[2].parameter.parameterName} - ${val.weatherElement[4].time[2].parameter.parameterName}`
+                            let img12 = `${val.weatherElement[0].time[0].parameter.parameterValue}`
+                            let img24 = `${val.weatherElement[0].time[1].parameter.parameterValue}`
+                            let img36 = `${val.weatherElement[0].time[2].parameter.parameterValue}`
+                            let text12 = `${val.weatherElement[0].time[0].parameter.parameterName}`
+                            let text24 = `${val.weatherElement[0].time[1].parameter.parameterName}`
+                            let text36 = `${val.weatherElement[0].time[2].parameter.parameterName}`
+                            content += `
+                        <hr>                          
+                            <div class="row mt-3">
+                                <div class="col pt-4">
+                                    ${key + 1}
+                                </div>
+                                <div class="col pt-4">
+                                    ${val.locationName}
+                                </div>
+                                <div class="col">
+                                    ${time12} 
+                                    <img src="./day/${img12}.svg" alt="${text12}" title="${text12}">
+                                </div>
+                                <div class="col">
+                                    ${time24} 
+                                    <img src="./day/${img24}.svg" alt="${text24}" title="${text24}">
+                                </div>
+                                <div class="col">
+                                    ${time36} 
+                                    <img src="./day/${img36}.svg" alt="${text36}" title="${text36}">
+                                </div>
+                            </div>  
+                    `
+                        })
+                        myContainer.html(content)
+                        // myTable.DataTable({
+                        //     language: {
+                        //         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/zh-HANT.json',
+                        //     }
+                        // })
+
+                        // myTable.DataTable({
+                        //     language: {
+                        //         "lengthMenu": "顯示 _MENU_ 筆資料",
+                        //         "sProcessing": "處理中...",
+                        //         "sZeroRecords": "没有匹配结果",
+                        //         "sInfo": "目前有 _MAX_ 筆資料",
+                        //         "sInfoEmpty": "目前共有 0 筆紀錄",
+                        //         "sInfoFiltered": " ",
+                        //         "sInfoPostFix": "",
+                        //         "sSearch": "搜尋:",
+                        //         "sUrl": "",
+                        //         "sEmptyTable": "尚未有資料紀錄存在",
+                        //         "sLoadingRecords": "載入資料中...",
+                        //         "sInfoThousands": ",",
+                        //         "oPaginate": {
+                        //             "sFirst": "首頁",
+                        //             "sPrevious": "上一頁",
+                        //             "sNext": "下一頁",
+                        //             "sLast": "末頁"
+                        //         },
+                        //         "order": [
+                        //             [0, "desc"]
+                        //         ],
+                        //         "oAria": {
+                        //             "sSortAscending": ": 以升序排列此列",
+                        //             "sSortDescending": ": 以降序排列此列"
+                        //         }
+                        //     }
+                        // })
+                    }
+                });
+            }
+        }
+        $(document).ready(jq_start_function)
+    </script>
+</body>
+
+</html>

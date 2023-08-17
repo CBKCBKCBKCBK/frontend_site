@@ -1,3 +1,38 @@
+<style>
+    #main>.container {
+        text-align: center;
+    }
+
+    #main>.container h1 {
+        margin-top: 30px;
+        color: lightblue;
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.3);
+    }
+
+    #main>.container h2 {
+        color: green;
+    }
+
+    #main>.container h4 {
+        color: red;
+    }
+
+    #main>.container #time {
+        color: blue;
+    }
+
+    #main>.container .in-container {
+        width: 500px;
+        border: 1px solid black;
+        padding: 30px;
+        margin: 50px auto;
+    }
+
+    #main>.container button {
+        width: 200px;
+        height: 50px;
+    }
+</style>
 <div class="container">
     <h1>投籃大賽</h1>
     <div class="in-container">
@@ -11,8 +46,83 @@
         <h4 id="time">3</h4>
     </div>
     <div class="in-container">
-        <button type="button" id="startBtn">開始</button>
-        <button type="button" id="inBtn">進球</button>
-        <button type="button" id="resetBtn">重置</button>
+        <button type="button" class="btn btn-outline-danger" id="startBtn">開始</button>
+        <button type="button" class="btn btn-outline-primary" id="inBtn">進球</button>
+        <button type="button" class="btn btn-outline-secondary" id="resetBtn">重置</button>
     </div>
 </div>
+<script>
+    function jq_start_function() {
+        function game_start() {
+            function countSec() {
+                time.text(Number(time.text()) - 1)
+                if (time.text() == 0) {
+                    let high = $("#highScore")
+                    // highHistory = localStorage.getItem("cbk").scoreHigh
+                    clearInterval(timer)
+                    if (scoreNow > high.text()) {
+                        high.text(scoreNow)
+                        localStorage.setItem("cbk", JSON.stringify({ 'scoreHigh': scoreNow }))
+                    }
+                    scoreNow = 0
+                }
+            }
+            function scoreFn(e) {
+                if (time.text() > 0 && enterEvt) {
+                    scoreNow += 2
+                    if (Math.random() < 0.1) scoreNow += 1
+                    score.text(scoreNow)
+                }
+            }
+            //  綁定
+            let score = $("#score")
+            let time = $("#time")
+            let startBtn = $("#startBtn")
+            let inBtn = $("#inBtn")
+            let resetBtn = $("#resetBtn")
+            //  取值
+            let defTime = Number($("#time").text())
+            let timer = 0
+            let scoreNow = 0
+            let enterEvt = true
+
+            localStorage.removeItem("cbk")
+            console.log("ls.getI " + localStorage.getItem("cbk"));
+            //  事件
+            timer = setInterval(countSec, 1000)
+            inBtn.click(scoreFn)
+            inBtn.keydown(function (e) {
+                if (e.keyCode === 13 && enterEvt) {
+                    scoreFn()
+                    enterEvt = false
+                }
+            })
+            inBtn.keyup(function (e) {
+                if (e.keyCode === 13) enterEvt = true
+            })
+            resetBtn.click(function () {
+                scoreNow = 0
+                score.text(0)
+                time.text(defTime)
+                clearInterval(time)
+                inBtn.hide()
+                startBtn.show()
+            })
+        }
+        //  初始化
+        localStorage.removeItem("cbk")
+        let highHistory = JSON.parse(localStorage.getItem("cbk"))
+        console.log(highHistory);
+        if (JSON.parse(localStorage.getItem("cbk")) !== null) {
+            highHistory = JSON.parse(localStorage.getItem("cbk")).scoreHigh
+            $("#highScore").text(highHistory)
+        }
+        $("#inBtn").hide()
+        $("#startBtn").click(function () {
+            $(this).hide()
+            $("#inBtn").show()
+            game_start()
+        })
+    }
+    $(document).ready(jq_start_function)
+</script>
