@@ -1,3 +1,4 @@
+# github pages網址: https://cbkcbkcbkcbk.github.io/frontend_site/
 # PHP 資料庫網頁設計 - 網頁動態技術 - 課程作業
 
 ## 作業內容
