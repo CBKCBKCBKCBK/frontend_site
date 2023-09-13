@@ -105,7 +105,8 @@
   }
   $('a[data-href]').click(function (e) {
     // e.preventDefault()
+    console.log(window.location.pathname);
     let url=`./features/${$(this).data('href')}.html`
-    $('#main').load(url)
+    // $('#main').load(url)
   })
 </script>
